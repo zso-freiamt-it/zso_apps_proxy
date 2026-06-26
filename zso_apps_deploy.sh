@@ -34,6 +34,8 @@ chown -R 65532:65532 ./certs
 # ==============================================================================
 if [ "$SETUP_ZSK" = "true" ]; then
 	bash $SCRIPT_DIR/offlinekarte.sh init
+	cp $SCRIPT_DIR/zskarte.service /etc/systemd/system
+	systemctl enable zskarte
 else
     echo "Zivilschutz Karte / Offlinekarte Setup ist deaktiviert. ueberspringe..."
 fi
@@ -48,6 +50,8 @@ echo "========================================================"
 
 if [ "$SETUP_TRAEFIK" = "true" ]; then
     bash $SCRIPT_DIR/zso_traefik.sh init
+    cp $SCRIPT_DIR/traefik.service /etc/systemd/system
+    systemctl enable traefik
 else
     echo "Traefik Proxy Setup ist deaktiviert. ueberspringe..."
 fi
@@ -64,6 +68,8 @@ echo "========================================================"
 
 if [ "$SETUP_PWA" = "true" ]; then
 	bash $SCRIPT_DIR/zso_pwa_app.sh init
+	cp $SCRIPT_DIR/pwa.service /etc/systemd/system
+	systemctl enable pwa
 else
     echo "PWA App Setup ist deaktiviert. ueberspringe..."
 fi
