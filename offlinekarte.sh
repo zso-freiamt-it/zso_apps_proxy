@@ -55,7 +55,7 @@ if [ "$CMD" = "init" ]; then
 	git clone $OFFLINEKARTE_GIT -b $OFFLINEKARTE_BRANCH $OFFLINEKARTE_PATH
 	git submodule update --init --recursive
 
-	# bash $OFFLINEKARTE_PATH/zskarte.sh init
+	bash $OFFLINEKARTE_PATH/zskarte.sh init
 
 
 	touch $OFFLINEKARTE_PATH/.env
