@@ -1,0 +1,15 @@
+[Unit]
+Description=Service for ZSKarte
+Requires=traefik.service
+After=traefik.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/zso/zso_apps_proxy
+ExecStart=bash offlinekarte.sh start
+ExecStop=bash offlinekarte.sh stop
+StandardOutput=syslog
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

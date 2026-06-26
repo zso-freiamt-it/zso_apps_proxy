@@ -44,6 +44,13 @@ elif [ "$CMD" = "start" ]; then
 	
     echo "${APPNAME} started."
 
+elif [ "$CMD" = "stop" ]; then
+    echo "Stopping ${APPNAME}..."
+
+	docker compose -f docker-compose-zsotraefik.yml --env-file .env --ansi never stop
+	
+    echo "${APPNAME} stopped."
+
 elif [ "$CMD" = "update" ]; then
     echo "Updating ${APPNAME}..."
 
