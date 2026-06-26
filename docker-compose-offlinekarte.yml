@@ -31,7 +31,7 @@ services:
     env_file:
       - .env
     environment:
-      - TILESERVER_GL_ALLOWED_HOSTS=${OFFLINEKARTE_TILESERVER_DOMAIN}
+      - TILESERVER_GL_ALLOWED_HOSTS=${TILESERVER_GL_ALLOWED_HOSTS:-${OFFLINEKARTE_TILESERVER_DOMAIN}}
     networks:
       - proxy-network
       - default
