@@ -18,9 +18,9 @@ set_zskarte_app_environment(){
 			echo "TLS ist deaktiviert -> Nutze http://"
 		fi
 
-		sed -i "s|apiUrl:.*|apiUrl: \`${PROTO}://${ZSKARTE_API_DOMAIN}${ZSKARTE_API_PATH}\`,|" "$ZSKARTE_ENV_TS"
-		sed -i "s|tileUrl:.*|tileUrl: \`${PROTO}://${OFFLINEKARTE_TILESERVER_DOMAIN}${OFFLINEKARTE_TILESERVER_PATH}\`,|" "$ZSKARTE_ENV_TS"
-		sed -i "s|searchUrl:.*|searchUrl: \`${PROTO}://${OFFLINEKARTE_SEARCHSERVER_DOMAIN}${OFFLINEKARTE_SEARCHSERVER_PATH}\`,|" "$ZSKARTE_ENV_TS"
+		sed -i "s|apiUrl:.*|apiUrl: \`${PROTO}://${ZSKARTE_API_DOMAIN_ENV}${ZSKARTE_API_PATH}\`,|" "$ZSKARTE_ENV_TS"
+		sed -i "s|tileUrl:.*|tileUrl: \`${PROTO}://${OFFLINEKARTE_TILESERVER_DOMAIN_ENV}${OFFLINEKARTE_TILESERVER_PATH}\`,|" "$ZSKARTE_ENV_TS"
+		sed -i "s|searchUrl:.*|searchUrl: \`${PROTO}://${OFFLINEKARTE_SEARCHSERVER_DOMAIN_ENV}${OFFLINEKARTE_SEARCHSERVER_PATH}\`,|" "$ZSKARTE_ENV_TS"
 		sed -i "s|searchLabel:.*|searchLabel: '${ZSKARTE_SEARCH_LABEL}',|" "$ZSKARTE_ENV_TS"
 		
 		echo "TypeScript Environments erfolgreich aktualisiert."
@@ -55,11 +55,15 @@ if [ "$CMD" = "init" ]; then
 	git clone $OFFLINEKARTE_GIT -b $OFFLINEKARTE_BRANCH $OFFLINEKARTE_PATH
 	git submodule update --init --recursive
 
-	bash $OFFLINEKARTE_PATH/zskarte.sh init
+	# bash $OFFLINEKARTE_PATH/zskarte.sh init
 
 
 	touch $OFFLINEKARTE_PATH/.env
 	touch $ZSKARTE_PATH/.env
+	
+	if [ -n "$POSTGRESQL_PASSWORD" ]; then
+		sed -i "s/\"Password\": .*/\"Password\": \"${POSTGRESQL_PASSWORD}\",/" $ZSKARTE_PATH/packages/server/init/servers.json
+	fi
 
 	echo "Running init for zskarte submodule"
 	
