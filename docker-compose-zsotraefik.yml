@@ -26,16 +26,13 @@ services:
       - "--providers.docker.endpoint=tcp://socket-proxy:2375"
       - "--entrypoints.web.address=:${PROXY_HTTP_PORT}"
       - "--entrypoints.websecure.address=:${PROXY_HTTPS_PORT}"
-      - "--entrypoints.websecure.http.tls.certresolver=myresolver"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
-      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.myresolver.acme.email=${ACME_MAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/certs/acme.json"
+      - "--entrypoints.websecure.http.tls=true"
+      - "--providers.file.filename=/conf/tls.yml"
     ports:
       - "${PROXY_HTTP_PORT}:${PROXY_HTTP_PORT}"
       - "${PROXY_HTTPS_PORT}:${PROXY_HTTPS_PORT}"
     volumes:
-      - ./certs:/certs
+      - ./conf:/conf:ro
     networks:
       - proxy-network
     depends_on:

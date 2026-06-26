@@ -18,9 +18,9 @@ set_zskarte_app_environment(){
 			echo "TLS ist deaktiviert -> Nutze http://"
 		fi
 
-		sed -i "s|apiUrl:.*|apiUrl: '${PROTO}://${ZSKARTE_API_DOMAIN}${ZSKARTE_API_PATH}',|" "$ZSKARTE_ENV_TS"
-		sed -i "s|tileUrl:.*|tileUrl: '${PROTO}://${OFFLINEKARTE_TILESERVER_DOMAIN}${OFFLINEKARTE_TILESERVER_PATH}',|" "$ZSKARTE_ENV_TS"
-		sed -i "s|searchUrl:.*|searchUrl: '${PROTO}://${OFFLINEKARTE_SEARCHSERVER_DOMAIN}${OFFLINEKARTE_SEARCHSERVER_PATH}',|" "$ZSKARTE_ENV_TS"
+		sed -i "s|apiUrl:.*|apiUrl: \`${PROTO}://${ZSKARTE_API_DOMAIN}${ZSKARTE_API_PATH}\`,|" "$ZSKARTE_ENV_TS"
+		sed -i "s|tileUrl:.*|tileUrl: \`${PROTO}://${OFFLINEKARTE_TILESERVER_DOMAIN}${OFFLINEKARTE_TILESERVER_PATH}\`,|" "$ZSKARTE_ENV_TS"
+		sed -i "s|searchUrl:.*|searchUrl: \`${PROTO}://${OFFLINEKARTE_SEARCHSERVER_DOMAIN}${OFFLINEKARTE_SEARCHSERVER_PATH}\`,|" "$ZSKARTE_ENV_TS"
 		sed -i "s|searchLabel:.*|searchLabel: '${ZSKARTE_SEARCH_LABEL}',|" "$ZSKARTE_ENV_TS"
 		
 		echo "TypeScript Environments erfolgreich aktualisiert."
@@ -29,6 +29,7 @@ set_zskarte_app_environment(){
 		echo "----------------------------------------"
 	else
 		echo "Warnung: $ZSKARTE_ENV_TS nicht gefunden. ueberspringe Anpassung."
+		exit 1
 	fi
 }
 

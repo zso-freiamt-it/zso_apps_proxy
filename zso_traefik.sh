@@ -26,10 +26,8 @@ if [ "$CMD" = "init" ]; then
     echo "Running INIT workflow for ${APPNAME}..."
 
 	# Let's Encrypt Ordner und Rechte vorbereiten
-	mkdir -p ./certs
-	touch ./certs/acme.json
-	chmod 600 ./certs/acme.json
-	chown -R 65532:65532 ./certs
+	chmod 600 ./conf/*
+	chown -R 65532:65532 ./conf
 
 	if ! docker network inspect proxy-network >/dev/null 2>&1; then
 		docker network create proxy-network

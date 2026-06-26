@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Abbrechen bei Fehlern
-#set -e
+set -e
 
 # 1. Zentrale .env Konfiguration laden
 if [ -f ".env" ]; then
@@ -28,6 +28,16 @@ mkdir -p ./certs
 touch ./certs/acme.json
 chmod 600 ./certs/acme.json
 chown -R 65532:65532 ./certs
+
+# ==============================================================================
+# WEB APP 3: ZS Karte / offlinekarte
+# ==============================================================================
+if [ "$SETUP_ZSK" = "true" ]; then
+	bash $SCRIPT_DIR/offlinekarte.sh init
+else
+    echo "Zivilschutz Karte / Offlinekarte Setup ist deaktiviert. ueberspringe..."
+fi
+echo "========================================================"
 
 # ==============================================================================
 # CENTRAL TRAEFIK PROXY
@@ -148,16 +158,6 @@ else
     echo "Incident Manager Setup ist deaktiviert. ueberspringe..."
 fi
 
-echo "========================================================"
-
-# ==============================================================================
-# WEB APP 3: ZS Karte / offlinekarte
-# ==============================================================================
-if [ "$SETUP_ZSK" = "true" ]; then
-	bash $SCRIPT_DIR/offlinekarte.sh init
-else
-    echo "Zivilschutz Karte / Offlinekarte Setup ist deaktiviert. ueberspringe..."
-fi
 echo "========================================================"
 
 echo "========================================================"

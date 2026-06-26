@@ -1,6 +1,7 @@
 services:
   offlinekarte-search-db:
     networks:
+      - proxy-network
       - default
 
   offlinekarte-search:

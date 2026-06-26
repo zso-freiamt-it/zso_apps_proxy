@@ -1,0 +1,4 @@
+tls:
+  certificates:
+    - certFile: /conf/boswil.crt
+      keyFile: /conf/boswil.key
