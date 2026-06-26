@@ -28,6 +28,7 @@ if [ "$CMD" = "init" ]; then
 	if [ ! -d "$PWA_APP_PATH" ]; then
         git clone $PWA_GIT $PWA_APP_PATH
     fi
+    chmod a+x $PWA_APP_PATH/entrypoint.sh
 	
 	docker compose -f $PWA_APP_PATH/docker-compose.yml -f $SCRIPTDIR/docker-compose-pwa.yml --env-file $SCRIPTDIR/.env build --no-cache
 
