@@ -1,0 +1,9 @@
+[Unit]
+Description="zskarte backups"
+Requires=backup-timer.timer
+
+[Service]
+Type=simple
+WorkingDirectory=/home/zso/zso_apps_proxy
+ExecStart=bash /home/zso/zso_apps_proxy/dump.sh
+User=root

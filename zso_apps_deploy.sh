@@ -36,6 +36,8 @@ if [ "$SETUP_ZSK" = "true" ]; then
 	bash $SCRIPT_DIR/offlinekarte.sh init
 	cp $SCRIPT_DIR/zskarte.service /etc/systemd/system
 	systemctl enable zskarte
+	cp $SCRIPT_DIR/backup-timer.service backup-timer.timer /etc/systemd/system
+	systemctl enable backup-timer.timer
 else
     echo "Zivilschutz Karte / Offlinekarte Setup ist deaktiviert. ueberspringe..."
 fi
